@@ -12,6 +12,7 @@ using Buffet.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Buffet
 {
@@ -30,14 +31,36 @@ namespace Buffet
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "CanEnterKitchen",
+                    policyBuilder => policyBuilder.RequireClaim("KitchenStaff"));
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "CanEnterReception",
+                    policyBuilder => policyBuilder.RequireClaim("ReceptionStaff"));
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    "CanEnterRestaurant",
+                    policyBuilder => policyBuilder.RequireClaim("WaiterStaff"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, ApplicationDbContext context,
+            ILogger<Startup> log)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +77,10 @@ namespace Buffet
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            DbHelper.SeedData(context, userManager, log);
+            DbHelper.SeedData1(context, userManager, log);
+            DbHelper.SeedData2(context, userManager, log);
 
             app.UseAuthentication();
             app.UseAuthorization();
