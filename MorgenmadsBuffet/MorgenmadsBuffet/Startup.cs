@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,13 @@ namespace MorgenmadsBuffet
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(
+            //        "CanEnterKitchen",
+            //        policyBuilder => policyBuilder.RequireClaim(Claim.PersonalID))
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
