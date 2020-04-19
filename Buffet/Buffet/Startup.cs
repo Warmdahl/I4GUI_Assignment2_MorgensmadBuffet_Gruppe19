@@ -79,8 +79,6 @@ namespace Buffet
             app.UseRouting();
 
             DbHelper.SeedData(context, userManager, log);
-            DbHelper.SeedData1(context, userManager, log);
-            DbHelper.SeedData2(context, userManager, log);
 
             app.UseAuthentication();
             app.UseAuthorization();
