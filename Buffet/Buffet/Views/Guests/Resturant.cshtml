@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Buffet.Models.Guest>
+
+@{
+    ViewData["Title"] = "Resturant";
+}
+
+<h1>Resturant</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomNr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgeStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Checked)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgeStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Checked)
+                </td>
+                <td>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="@item.Checked" /> @Html.DisplayNameFor(model => model.Checked)
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<form>
+    <div class="form-group">
+       @*<asp:Button ID="Button1" runat="server" Text="Button" OnClick="ResturantCheckIn" />*@
+       <input type="submit" value="Check In" class="btn btn-primary" />
+    </div>
+</form>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
