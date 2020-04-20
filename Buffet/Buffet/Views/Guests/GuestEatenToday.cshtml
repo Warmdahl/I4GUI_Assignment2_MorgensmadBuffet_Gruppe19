@@ -1,0 +1,43 @@
+﻿@using Microsoft.EntityFrameworkCore.Internal
+@model IEnumerable<Buffet.Models.Reseption>
+
+@{
+    ViewData["Title"] = "GuestEatenToday";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Guest Eaten Today</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Room Number:
+                </th>
+                <th>
+                    Adults:
+                </th>
+                <th>
+                    Children:
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Room)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.NrAdults)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.NrChildren)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
