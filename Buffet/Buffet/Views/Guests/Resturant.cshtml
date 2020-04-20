@@ -5,6 +5,7 @@
 }
 
 <h1>Resturant</h1>
+<h2>Reservations Today @DateTime.Today.Day-@DateTime.Today.Month-@DateTime.Today.Year</h2>
 
 <table class="table">
     <thead>
@@ -27,37 +28,33 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RoomNr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AgeStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Checked)
-                </td>
-                <td>
-                    <form asp-action="Resturant">
-                        <div class="form-group">
-                            <input type="submit" asp-route-id="@item.GuestId" value="Check In" class="btn btn-primary" />
-                        </div>
-                    </form>
-                </td>
-            </tr>
+            @if (item.Date.Date == DateTime.Today.Date)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomNr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AgeStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Checked)
+                    </td>
+                    <td>
+                        <form asp-action="Resturant">
+                            <div class="form-group">
+                                <input type="submit" asp-route-id="@item.GuestId" value="Check In" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
-
-
-@*<form method="post">
-    <div class="form-group">
-       <input type="submit" name="supmitChekin" value="Check In" class="btn btn-primary" />
-    </div>
-</form>*@
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
