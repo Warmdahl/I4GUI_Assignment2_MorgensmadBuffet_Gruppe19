@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Buffet.Models
 {
-    public class Resturant : IResturant
+    public class Resturant //: IResturant
     {
-        private List<Reservation> reservations_;
-        public List<Reservation> BuffetList 
-        {
-            get => reservations_; 
-            set => reservations_= value; 
-        }
+        //private List<Reservation> reservations_;
+        //public List<Reservation> BuffetList
+        //{
+        //    get => reservations_;
+        //    set => reservations_= value;
+        //}
     }
 }

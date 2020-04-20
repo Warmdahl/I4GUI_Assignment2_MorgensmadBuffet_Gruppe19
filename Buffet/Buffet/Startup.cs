@@ -54,7 +54,7 @@ namespace Buffet
             {
                 options.AddPolicy(
                     "CanEnterRestaurant",
-                    policyBuilder => policyBuilder.RequireClaim("WaiterStaff"));
+                    policyBuilder => policyBuilder.RequireClaim("ResturantStaff"));
             });
         }
 
