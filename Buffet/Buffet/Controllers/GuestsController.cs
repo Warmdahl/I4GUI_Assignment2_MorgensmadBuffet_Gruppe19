@@ -56,54 +56,9 @@ namespace Buffet.Controllers
         [Authorize("CanEnterReception")]
         // GET: Guests
         public async Task<IActionResult> GuestEatenToday()
-        {
-          /*  var guest = await _context.Guests.ToListAsync();
+        { 
+            var guest = await _context.Guests.ToListAsync(); 
             var guests = from s in _context.Guests
-                         select s;
-
-            var receptions = new List<Reception>();
-
-            foreach (Guest g in guest)
-            {
-                if ((g.Date.Date == DateTime.Today) && (g.Checked == true))
-                {
-                    if (receptions.Count != 0) 
-                    {
-                        foreach (Reception r in receptions) 
-                        {
-                            if ((r.Room == g.RoomNr) && (g.AgeStatus == "Adult"))
-                            {
-                                r.NrAdults++;
-                            }
-                            else if ((r.Room == g.RoomNr) && (g.AgeStatus == "Child"))
-                            {
-                                r.NrChildren++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        int adult;
-                        int child;
-
-                        if (g.AgeStatus == "Adult")
-                        {
-                            adult = 1;
-                            child = 0;
-                        }
-                        else
-                        {
-                            adult = 0;
-                            child = 1;
-                        }
-
-                        receptions.Add(new Reception(g.RoomNr, adult, child));
-                    }
-                }
-            }
-            return View(receptions);*/
-          var guest = await _context.Guests.ToListAsync();
-          var guests = from s in _context.Guests
               select s;
 
           var receptions = new List<Reception>();
