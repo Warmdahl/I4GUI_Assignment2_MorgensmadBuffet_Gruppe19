@@ -50,6 +50,38 @@ namespace Buffet.Controllers
             return View(await guests.AsNoTracking().ToListAsync());
         }
 
+
+        [Authorize("CanEnterReception")]
+        // GET: Guests
+        public async Task<IActionResult> GuestEatenToday()
+        {
+            var guest = await _context.Guests.ToListAsync();
+            var guests = from s in _context.Guests
+                         select s;
+
+            var reseption = new List<Reseption>();
+
+            foreach(Guest g in guests)
+            {
+                if ((g.Date.Date == DateTime.Today)&&(g.Checked == true))
+                {
+                    foreach (Reseption r in reseption)
+                    {
+                        if ((r.Room == g.RoomNr)&&(g.AgeStatus=="Adult"))
+                        {
+                            r.NrAdults++;
+                        }
+                        else if ((r.Room == g.RoomNr) && (g.AgeStatus == "Child"))
+                        {
+                            r.NrChildren++;
+                        }
+                    }
+                }
+            }
+
+            return View(reseption);
+        }
+
         [Authorize("CanEnterRestaurant")]
         public async Task<IActionResult> Resturant()
         {
@@ -102,42 +134,6 @@ namespace Buffet.Controllers
             return View(await _context.Guests.AsNoTracking().ToListAsync());
         }
 
-        protected void ResturantCheckIn(long id, [Bind("GuestId,AgeStatus,RoomNr,Date,Checked")] Guest guest)
-        {
-            guest.Checked = true;
-
-            //if (id != guest.GuestId)
-            //{
-            //    //throw Exception("");
-            //    Console.WriteLine("Guest not Found");
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        _context.Update(guest);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!GuestExists(guest.GuestId))
-            //        {
-            //            Console.WriteLine("Guest not Found");
-            //            //return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-                    
-            //    }
-            //    return RedirectToAction(nameof(Resturant));
-            //}
-            //return View(await _context.Guests.AsNoTracking().ToListAsync());
-        }
-
-
 
         // GET: Guests/Details/5
         public async Task<IActionResult> Details(long? id)
@@ -175,7 +171,7 @@ namespace Buffet.Controllers
             {
                 _context.Add(guest);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Reseption));
             }
             return View(guest);
         }
@@ -228,7 +224,7 @@ namespace Buffet.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Reseption));
             }
             return View(guest);
         }
