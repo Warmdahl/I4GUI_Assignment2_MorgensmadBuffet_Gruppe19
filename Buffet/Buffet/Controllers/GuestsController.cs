@@ -57,7 +57,7 @@ namespace Buffet.Controllers
         // GET: Guests
         public async Task<IActionResult> GuestEatenToday()
         {
-            var guest = await _context.Guests.ToListAsync();
+          /*  var guest = await _context.Guests.ToListAsync();
             var guests = from s in _context.Guests
                          select s;
 
@@ -101,7 +101,29 @@ namespace Buffet.Controllers
                     }
                 }
             }
-            return View(receptions);
+            return View(receptions);*/
+          var guest = await _context.Guests.ToListAsync();
+          var guests = from s in _context.Guests
+              select s;
+
+          var receptions = new List<Reception>();
+
+          foreach (var g in guest)
+          {
+              if (!receptions.Exists(x => x.Room == g.RoomNr) && g.Date.Date == DateTime.Today && g.Checked == true)
+              {
+                  var r = new Reception(g.RoomNr, 0, 0);
+                  receptions.Add(r);
+              }
+          }
+
+          foreach (var r in receptions)
+          {
+              r.NrAdults = guest.Where(g => g.AgeStatus=="Adult" && g.RoomNr == r.Room && g.Date.Date == DateTime.Today && g.Checked == true).Count();
+              r.NrChildren = guest.Where(g => g.AgeStatus=="Child" && g.RoomNr == r.Room && g.Date.Date == DateTime.Today && g.Checked == true).Count();
+          }
+
+          return View(receptions);
         }
 
         [Authorize("CanEnterRestaurant")]
