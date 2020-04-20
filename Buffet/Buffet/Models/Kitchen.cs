@@ -12,5 +12,10 @@ namespace Buffet.Models
         public int AdultsCheckedIn { get; set; }
         public int ChildrenTotal { get; set; }
         public int ChildrenCheckedIn { get; set; }
+        public int NotCheckedIn { get; set; }
+        public int AdultNotCheckedIn { get; set; }
+        public int ChildrenNotCheckedIn { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

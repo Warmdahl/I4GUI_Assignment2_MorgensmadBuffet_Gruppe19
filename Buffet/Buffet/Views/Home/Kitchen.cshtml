@@ -1,11 +1,72 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using Microsoft.EntityFrameworkCore.Internal
+@*@model IEnumerable<Buffet.Models.Guest>*@
+@model Kitchen
+
 @{
     ViewData["Title"] = "Kitchen";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Kitchen</h1>
-        <p>Test I think</p>
-    </div>
+<div class="text-center">
+    <h1 class="display-4">Kitchen</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Total antal forventede gæster:
+                </th>
+                <th>
+                    Total antal forventede voksne:
+                </th>
+                <th>
+                    Total antal forventede børn:
+                </th>
+                <th>
+                    Antal Voksne checket ind:
+                </th>
+                <th>
+                    Antal Børn checket ind:
+                </th>
+                <th>
+                    Endnu ikke checket ind:
+                </th>
+                <th>
+                    Antal Voksne:
+                </th>
+                <th>
+                    Antal Børn:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+             <tr>
+                 <td>
+                     @Html.DisplayFor(model=> model.TotalAll)
+                 </td>
+                 <td>
+                    @Html.DisplayFor(model => model.AdultsTotal)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.ChildrenTotal)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.AdultsCheckedIn)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.ChildrenCheckedIn)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.NotCheckedIn)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.AdultNotCheckedIn)
+                 </td>
+                 <td>
+                     @Html.DisplayFor(model => model.ChildrenNotCheckedIn)
+                 </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
