@@ -61,24 +61,44 @@ namespace Buffet.Controllers
 
             var receptions = new List<Reception>();
 
-            foreach (Guest g in guests)
+            foreach (Guest g in guest)
             {
-                if ((g.Date.Date == DateTime.Today)&&(g.Checked == true))
+                if ((g.Date.Date == DateTime.Today) && (g.Checked == true))
                 {
-                    foreach (Reception r in receptions) //Der er ikke sat noget i r.Room så der kan ikke sammenlignes noget i begge if statements.
+                    if (receptions.Count != 0) 
                     {
-                        if ((r.Room == g.RoomNr)&&(g.AgeStatus=="Adult"))
+                        foreach (Reception r in receptions) 
                         {
-                            r.NrAdults++;
+                            if ((r.Room == g.RoomNr) && (g.AgeStatus == "Adult"))
+                            {
+                                r.NrAdults++;
+                            }
+                            else if ((r.Room == g.RoomNr) && (g.AgeStatus == "Child"))
+                            {
+                                r.NrChildren++;
+                            }
                         }
-                        else if ((r.Room == g.RoomNr) && (g.AgeStatus == "Child"))
+                    }
+                    else
+                    {
+                        int adult;
+                        int child;
+
+                        if (g.AgeStatus == "Adult")
                         {
-                            r.NrChildren++;
+                            adult = 1;
+                            child = 0;
                         }
+                        else
+                        {
+                            adult = 0;
+                            child = 1;
+                        }
+
+                        receptions.Add(new Reception(g.RoomNr, adult, child));
                     }
                 }
             }
-
             return View(receptions);
         }
 

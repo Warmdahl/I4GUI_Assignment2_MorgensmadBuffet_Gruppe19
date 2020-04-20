@@ -15,5 +15,12 @@ namespace Buffet.Models
 
         [DisplayName("NrChildren")]
         public int NrChildren { get; set; }
+
+        public Reception(int room, int nradults, int nrchildren)
+        {
+            Room = room;
+            NrAdults = nradults;
+            NrChildren = nrchildren;
+        }
     }
 }
