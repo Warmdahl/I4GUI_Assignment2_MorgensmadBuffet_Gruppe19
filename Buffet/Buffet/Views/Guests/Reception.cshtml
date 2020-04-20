@@ -5,10 +5,15 @@
 }
     <h1>Reception</h1>
 
-    <p>
-        <a asp-action="Create">Add Guest</a>
-        <a asp-action="GuestEatenToday">Guest Eaten Today</a>
-    </p>
+<p>
+    <div>
+        <button type="button" class="btn btn-primary" value="Go Somewhere Else" onclick="location.href='@Url.Action("Create", "Guests")'" style="height: 50px; width: 100px; font-size: 10px">Add Guest</button>
+    
+        <button type="button" class="btn btn-primary" value="Go Somewhere Else" onclick="location.href='@Url.Action("GuestEatenToday", "Guests")'" style="height: 50px; width: 100px; font-size: 10px; align-left: 60px">Guests Eaten Today</button>
+    </div>
+    
+   
+</p>
 <table class="table">
     <thead>
         <tr>
