@@ -15,7 +15,5 @@ namespace Buffet.Models
         public int NotCheckedIn { get; set; }
         public int AdultNotCheckedIn { get; set; }
         public int ChildrenNotCheckedIn { get; set; }
-
-        public DateTime Date { get; set; }
     }
 }

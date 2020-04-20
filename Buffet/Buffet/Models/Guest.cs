@@ -20,7 +20,7 @@ namespace Buffet.Models
         // P R I M A R Y    K E Y
         public long GuestId { get; set; }
 
-        // A P P L I C A T I O N     U S E R
+        // A G E     S T A T U S
         [DisplayName("AgeStatus")]
         [MaxLength(5)]
         public String AgeStatus { get; set; }

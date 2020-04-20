@@ -90,6 +90,8 @@ namespace Buffet.Controllers
             var guests = from s in _context.Guests
                          select s;
 
+            guests = guests.OrderByDescending(s => s.RoomNr);
+
             return View(await guests.AsNoTracking().ToListAsync());
         }
 

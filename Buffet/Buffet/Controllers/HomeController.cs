@@ -17,8 +17,6 @@ namespace Buffet.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        //private readonly ILogger<HomeController> _logger;
-
         public HomeController(ApplicationDbContext context)
         {
             _context = context;
