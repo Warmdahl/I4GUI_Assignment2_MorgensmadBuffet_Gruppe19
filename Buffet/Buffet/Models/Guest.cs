@@ -36,9 +36,12 @@ namespace Buffet.Models
         // C H E C K E D
         [DisplayName("Checked")]
         public bool Checked { get; set; }
+<<<<<<< HEAD
 
         //public String TestStatus { get; set; }
         //public IEnumerable<SelectListItem> Statuseses { get; set; }
 
+=======
+>>>>>>> master
     }
 }
