@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buffet.Models
 {
-    public class Reseption
+    public class Reception
     {
         public int Room { get; set; }
 

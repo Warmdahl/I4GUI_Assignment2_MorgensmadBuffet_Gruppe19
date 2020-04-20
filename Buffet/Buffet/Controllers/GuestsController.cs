@@ -37,7 +37,7 @@ namespace Buffet.Controllers
 
         [Authorize("CanEnterReception")]
         // GET: Guests
-        public async Task<IActionResult> Reseption()
+        public async Task<IActionResult> Reception()
         {
             // Adding code to sort the indext list desending.
             // source: https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-3.1#add-column-sort-links
@@ -59,13 +59,13 @@ namespace Buffet.Controllers
             var guests = from s in _context.Guests
                          select s;
 
-            var reseption = new List<Reseption>();
+            var receptions = new List<Reception>();
 
-            foreach(Guest g in guests)
+            foreach (Guest g in guests)
             {
                 if ((g.Date.Date == DateTime.Today)&&(g.Checked == true))
                 {
-                    foreach (Reseption r in reseption)
+                    foreach (Reception r in receptions) //Der er ikke sat noget i r.Room så der kan ikke sammenlignes noget i begge if statements.
                     {
                         if ((r.Room == g.RoomNr)&&(g.AgeStatus=="Adult"))
                         {
@@ -79,7 +79,7 @@ namespace Buffet.Controllers
                 }
             }
 
-            return View(reseption);
+            return View(receptions);
         }
 
         [Authorize("CanEnterRestaurant")]
@@ -171,7 +171,7 @@ namespace Buffet.Controllers
             {
                 _context.Add(guest);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Reseption));
+                return RedirectToAction(nameof(Reception));
             }
             return View(guest);
         }
@@ -224,7 +224,7 @@ namespace Buffet.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Reseption));
+                return RedirectToAction(nameof(Reception));
             }
             return View(guest);
         }
