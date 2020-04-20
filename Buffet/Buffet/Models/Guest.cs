@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualBasic;
 
 namespace Buffet.Models
@@ -35,6 +36,9 @@ namespace Buffet.Models
         // C H E C K E D
         [DisplayName("Checked")]
         public bool Checked { get; set; }
+
+        public String TestStatus { get; set; }
+        public IEnumerable<SelectListItem> Statuseses { get; set; }
 
     }
 }

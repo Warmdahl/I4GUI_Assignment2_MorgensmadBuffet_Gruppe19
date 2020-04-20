@@ -1,4 +1,5 @@
-﻿@model Buffet.Models.Guest
+﻿@using Microsoft.AspNetCore.Razor.Language.Intermediate
+@model Buffet.Models.Guest
 
 @{
     ViewData["Title"] = "Create";
@@ -21,6 +22,9 @@
                 <label asp-for="AgeStatus" class="control-label"></label>
                 <input asp-for="AgeStatus" class="form-control" />
                 <span asp-validation-for="AgeStatus" class="text-danger"></span>
+                @*@Html.DropDownList("AgeStatus", new SelectListItem[],"Select AgeStatus", new {@class = "form-control"})*@
+                @Html.DropDownListFor(g => g.TestStatus, new SelectList(Enum.GetValues(typeof(Status))), "Select Gender", new { @class = "form-control" })
+                @*@Html.DropDownListFor(g => g.AgeStatus, new SelectList(string Adult, string Child), "Select Gender", new { @class = "form-control" })*@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
@@ -40,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Reseption">Back to List</a>
+    <a asp-action="Reception">Back to List</a>
 </div>
 
 @section Scripts {
