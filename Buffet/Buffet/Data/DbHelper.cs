@@ -14,6 +14,7 @@ namespace Buffet.Data
             SeedKitchen(userManager, log);
             SeedReception(userManager, log);
             SeedResturant(userManager, log);
+            SeedAdmin(userManager, log);
         }
 
         public async static void SeedKitchen(UserManager<IdentityUser> userManager, ILogger log)
@@ -81,6 +82,33 @@ namespace Buffet.Data
                 {
                     var adminClaim = new Claim("ResturantStaff", "Yes");
                     await userManager.AddClaimAsync(user, adminClaim);
+                }
+            }
+        }
+
+        public async static void SeedAdmin(UserManager<IdentityUser> userManager, ILogger log)
+        {
+            const string adminEmail = "Admin@Admin";
+            const string adminPassword = "Admin123!";
+
+            if (userManager.FindByNameAsync(adminEmail).Result == null)
+            {
+                log.LogWarning("Seeding the admin user");
+                var user = new IdentityUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail
+                };
+                IdentityResult result = userManager.CreateAsync
+                    (user, adminPassword).Result;
+                if (result.Succeeded)
+                {
+                    var adminClaim = new Claim("KitchenStaff", "Yes");
+                    await userManager.AddClaimAsync(user, adminClaim);
+                    var adminClaim1 = new Claim("ResturantStaff", "Yes");
+                    await userManager.AddClaimAsync(user, adminClaim1);
+                    var adminClaim2 = new Claim("ReceptionStaff", "Yes");
+                    await userManager.AddClaimAsync(user, adminClaim2);
                 }
             }
         }
