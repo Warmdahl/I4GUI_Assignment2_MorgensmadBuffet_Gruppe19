@@ -7,6 +7,6 @@ namespace Buffet.Models
 {
     public class Reseption
     {
-        List<Booking> Bookings = new List<Booking>();
+        //List<Booking> Bookings = new List<Booking>();
     }
 }

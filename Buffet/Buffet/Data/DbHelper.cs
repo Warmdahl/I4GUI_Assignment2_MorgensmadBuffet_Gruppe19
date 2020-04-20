@@ -79,7 +79,7 @@ namespace Buffet.Data
                     (user, adminPassword).Result;
                 if (result.Succeeded)
                 {
-                    var adminClaim = new Claim("WaiterStaff", "Yes");
+                    var adminClaim = new Claim("ResturantStaff", "Yes");
                     await userManager.AddClaimAsync(user, adminClaim);
                 }
             }
