@@ -59,9 +59,47 @@ namespace Buffet.Controllers
             var guests = from s in _context.Guests
                          select s;
 
-
-
             return View(await guests.AsNoTracking().ToListAsync());
+        }
+
+        // Called on Post from Resturant to update the chechin status.
+        [HttpPost]
+        [Authorize("CanEnterRestaurant")]
+        public async Task<IActionResult> Resturant(long id)
+        {
+            // Finds the guest in the database based on the ID:
+            var guest = await _context.Guests
+                .FirstOrDefaultAsync(m => m.GuestId == id);
+            if (guest == null)
+            {
+                return NotFound();
+            }
+
+            // Sets the checkin status to True:
+            guest.Checked = true;
+
+
+            // Updates the database:
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(guest);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!GuestExists(guest.GuestId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return View(await _context.Guests.AsNoTracking().ToListAsync());
         }
 
         protected void ResturantCheckIn(long id, [Bind("GuestId,AgeStatus,RoomNr,Date,Checked")] Guest guest)
